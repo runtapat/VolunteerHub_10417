@@ -63,6 +63,9 @@ export default function App() {
   const [showTranscriptModal, setShowTranscriptModal] = useState(false);
   const [discoverInitialCategory, setDiscoverInitialCategory] = useState<CategoryType | undefined>(undefined);
 
+  // คำค้นหาชุดกลาง ใช้ร่วมกันระหว่างช่องค้นหาบน Header และแผงกรองในหน้าค้นหากิจกรรม
+  const [searchQuery, setSearchQuery] = useState('');
+
   // Toast Notifications
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -344,6 +347,8 @@ export default function App() {
             }}
             unreadCount={unreadNotificationsCount}
             onOpenMobileDrawer={() => setIsMobileDrawerOpen(true)}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
 
           {/* Page Body Container */}
@@ -365,6 +370,8 @@ export default function App() {
                 activities={activities}
                 registrations={registrations}
                 initialCategory={discoverInitialCategory}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
                 onSelectActivity={(act) => setSelectedActivityDetail(act)}
                 onQuickSignUp={(act) => setSelectedActivitySignUp(act)}
               />

@@ -15,7 +15,9 @@ interface HeaderProps {
   onSelectUser: (user: UserProfile) => void;
   unreadCount: number;
   onOpenMobileDrawer: () => void;
-  onOpenQuickSearch?: () => void;
+  /** คำค้นหาชุดเดียวกับที่ใช้ในหน้าค้นหากิจกรรม */
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -24,7 +26,9 @@ export const Header: React.FC<HeaderProps> = ({
   currentUser,
   onSelectUser,
   unreadCount,
-  onOpenMobileDrawer
+  onOpenMobileDrawer,
+  searchQuery,
+  onSearchChange
 }) => {
   const [showUserDropdown, setShowUserDropdown] = useState(false);
   const currentTier = BADGE_TIERS[currentUser.currentTier] || BADGE_TIERS.tier_1;
@@ -58,10 +62,15 @@ export const Header: React.FC<HeaderProps> = ({
         <input
           type="text"
           placeholder="ค้นหากิจกรรมอาสา..."
+          value={searchQuery}
+          onChange={(e) => {
+            onSearchChange(e.target.value);
+            // พิมพ์จากหน้าไหนก็ได้ ระบบจะพาไปหน้าค้นหากิจกรรมให้อัตโนมัติ
+            if (activeTab !== 'discover') setActiveTab('discover');
+          }}
           onClick={() => {
             if (activeTab !== 'discover') setActiveTab('discover');
           }}
-          readOnly={activeTab !== 'discover'}
           className="w-full bg-slate-100 border-none rounded-full py-2 px-5 text-xs text-slate-700 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-teal-500 transition-all cursor-pointer"
         />
         <span className="absolute right-4 top-2 opacity-40 text-xs">🔍</span>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { 
   Compass, 
   LayoutGrid, 
@@ -20,6 +20,9 @@ interface DiscoverScreenProps {
   activities: Activity[];
   registrations: Registration[];
   initialCategory?: CategoryType;
+  /** คำค้นหาชุดเดียวกับช่องค้นหาบน Header */
+  searchQuery: string;
+  onSearchChange: (query: string) => void;
   onSelectActivity: (act: Activity) => void;
   onQuickSignUp: (act: Activity) => void;
 }
@@ -29,11 +32,13 @@ export const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   activities,
   registrations,
   initialCategory,
+  searchQuery,
+  onSearchChange,
   onSelectActivity,
   onQuickSignUp
 }) => {
   const [filters, setFilters] = useState<FilterState>({
-    searchQuery: '',
+    searchQuery,
     categories: initialCategory ? [initialCategory] : [],
     province: 'ทุกจังหวัด (All Locations)',
     minHours: 0,
@@ -45,7 +50,18 @@ export const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isLoadingMock, setIsLoadingMock] = useState(false);
 
+  // ช่องค้นหาบน Header กับในแผงกรอง ใช้คำค้นชุดเดียวกัน จึงต้องซิงก์เข้าหากันทั้งสองทาง
+  useEffect(() => {
+    setFilters((prev) => (prev.searchQuery === searchQuery ? prev : { ...prev, searchQuery }));
+  }, [searchQuery]);
+
+  const handleFilterChange = (next: FilterState) => {
+    setFilters(next);
+    if (next.searchQuery !== searchQuery) onSearchChange(next.searchQuery);
+  };
+
   const handleResetFilters = () => {
+    onSearchChange('');
     setFilters({
       searchQuery: '',
       categories: [],
@@ -157,7 +173,7 @@ export const DiscoverScreen: React.FC<DiscoverScreenProps> = ({
       {/* Adaptive Filters Panel */}
       <ActivityFilterPanel
         filters={filters}
-        onFilterChange={setFilters}
+        onFilterChange={handleFilterChange}
         onReset={handleResetFilters}
         totalResults={filteredActivities.length}
       />

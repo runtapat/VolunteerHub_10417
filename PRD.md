@@ -1,76 +1,76 @@
-# VolunteerHub — Frontend PRD
+# VolunteerHub — เอกสารข้อกำหนดผลิตภัณฑ์ (Frontend PRD)
 
-## 1. Product Overview
-- **Name:** VolunteerHub Thailand
-- **Description:** A volunteer activity platform for Thai students and young adults to discover activities, sign up, accumulate verified volunteer hours, and collect digital certificates
-- **Problem:** Volunteer opportunities are scattered across social media pages, and volunteer hours are still tracked on paper — making them easy to lose, hard to verify, and difficult to compile for scholarship (กยศ.) or TCAS portfolio applications
-- **Target Users:** High school students (TCAS portfolio), university students (scholarship hour requirements), young working adults who volunteer on weekends
+## 1. ภาพรวมผลิตภัณฑ์ (Product Overview)
+- **ชื่อผลิตภัณฑ์:** VolunteerHub Thailand
+- **คำอธิบาย:** แพลตฟอร์มกิจกรรมจิตอาสาสำหรับนักเรียน นักศึกษา และคนรุ่นใหม่ ใช้ค้นหากิจกรรม สมัครเข้าร่วม สะสมชั่วโมงจิตอาสาที่ตรวจสอบได้ และเก็บเกียรติบัตรอิเล็กทรอนิกส์ไว้ในที่เดียว
+- **ปัญหาที่แก้:** กิจกรรมจิตอาสากระจัดกระจายอยู่ตามเพจและกลุ่มต่างๆ ส่วนชั่วโมงจิตอาสายังบันทึกด้วยกระดาษ ทำให้เอกสารสูญหายง่าย ตรวจสอบย้อนหลังยาก และรวบรวมเพื่อยื่นขอทุน กยศ. หรือทำพอร์ตโฟลิโอ TCAS ได้ลำบาก
+- **กลุ่มผู้ใช้เป้าหมาย:** นักเรียนมัธยมปลายที่ต้องทำพอร์ตโฟลิโอ TCAS, นิสิตนักศึกษาที่ต้องใช้ชั่วโมงจิตอาสาประกอบการขอทุน, คนรุ่นใหม่วัยทำงานที่ใช้เวลาว่างวันหยุดทำประโยชน์เพื่อสังคม
 
-## 2. User Stories
-1. As a student, I want to filter activities by category, province, and hours so I can find events I can actually attend
-2. As a student, I want to see remaining seats on each activity so I can decide before it fills up
-3. As a user, I want the sign-up form pre-filled with my profile so I don't retype my details every time
-4. As a parent, I want an emergency contact recorded on every sign-up so I know my child is safe
-5. As a student, I want to cancel a registration with a reason so the seat returns to other volunteers
-6. As a student, I want to see my hours broken down by category so I know which area to strengthen
-7. As a student, I want to download a certificate with a verification code so I can attach it to my scholarship application
-8. As a user, I want to see my tier, badges, and monthly rank so I stay motivated to volunteer again
+## 2. ความต้องการของผู้ใช้ (User Stories)
+1. ในฐานะนักศึกษา ฉันต้องการกรองกิจกรรมตามหมวดหมู่ จังหวัด และจำนวนชั่วโมง เพื่อที่จะเจอกิจกรรมที่เดินทางไปร่วมได้จริง
+2. ในฐานะนักศึกษา ฉันต้องการเห็นจำนวนที่นั่งคงเหลือของแต่ละกิจกรรม เพื่อที่จะตัดสินใจสมัครได้ทันก่อนเต็ม
+3. ในฐานะผู้ใช้ ฉันต้องการให้ฟอร์มสมัครเติมข้อมูลส่วนตัวให้อัตโนมัติ เพื่อที่จะไม่ต้องพิมพ์ข้อมูลซ้ำทุกครั้ง
+4. ในฐานะผู้ปกครอง ฉันต้องการให้ทุกการสมัครมีข้อมูลผู้ติดต่อฉุกเฉิน เพื่อที่จะมั่นใจในความปลอดภัยของบุตรหลาน
+5. ในฐานะนักศึกษา ฉันต้องการยกเลิกการสมัครพร้อมระบุเหตุผลได้ เพื่อที่จะคืนที่นั่งให้จิตอาสาคนอื่น
+6. ในฐานะนักศึกษา ฉันต้องการเห็นชั่วโมงสะสมแยกตามหมวดหมู่ เพื่อที่จะรู้ว่าควรเสริมประสบการณ์ด้านใด
+7. ในฐานะนักศึกษา ฉันต้องการดาวน์โหลดเกียรติบัตรที่มีรหัสตรวจสอบ เพื่อที่จะแนบประกอบการขอทุน กยศ.
+8. ในฐานะผู้ใช้ ฉันต้องการเห็นระดับเหรียญตรา เหรียญความสำเร็จ และอันดับประจำเดือนของตนเอง เพื่อที่จะมีแรงจูงใจทำกิจกรรมต่อเนื่อง
 
-## 3. Screen Definitions
-- **Home:** Welcome banner, featured activities, category shortcuts, monthly goal progress, upcoming registered activities
-- **Discover:** Search bar, filter panel (category, province, hours range, date), sort dropdown, result grid with activity cards
-- **My Activities:** Tabs for upcoming, completed, and cancelled registrations, with cancel and complete-simulation actions
-- **Hours & Certificates:** Four summary stat cards, hours-by-category chart, digital certificate vault, transcript export button
-- **Notifications:** Chronological list of activity, certificate, badge, reminder, and system alerts with unread state
-- **Leaderboard & Achievements:** Monthly top-3 podium, full ranking table, 4-tier criteria, badge collection grid
-- **Profile:** Personal info, institution, skills, interests, volunteer history, and a 5-persona switcher
-- **Activity Detail Modal:** Full description, organizer, duties, qualifications, benefits, location, dress code, sign-up button
-- **Sign Up Modal:** Pre-filled personal form, emergency contact fields, special needs, terms agreement, validation messages
-- **Cancel Confirm Modal:** Reason dropdown and confirmation warning
-- **Certificate Preview Modal:** Full-size certificate with number, hours, signatory, and QR verification code
-- **Transcript Modal:** Official hour-verification document listing every approved activity with a total
+## 3. นิยามหน้าจอ (Screen Definitions)
+- **หน้าหลัก (Home):** แบนเนอร์ต้อนรับ กิจกรรมแนะนำ ปุ่มลัดหมวดหมู่ ความคืบหน้าเป้าหมายรายเดือน และกิจกรรมที่สมัครไว้และกำลังจะถึง
+- **ค้นหากิจกรรม (Discover):** ช่องค้นหา แผงตัวกรอง (หมวดหมู่ จังหวัด ช่วงชั่วโมง ช่วงเวลา) ตัวเลือกเรียงลำดับ และตารางผลลัพธ์แบบการ์ด
+- **กิจกรรมของฉัน (My Activities):** แยกแท็บกิจกรรมที่กำลังจะถึง สำเร็จแล้ว และยกเลิกแล้ว พร้อมปุ่มยกเลิกและปุ่มจำลองการเข้าร่วมสำเร็จ
+- **ชั่วโมง & เกียรติบัตร (Hours & Certificates):** การ์ดสรุป 4 ค่า กราฟชั่วโมงแยกตามหมวดหมู่ คลังเกียรติบัตรอิเล็กทรอนิกส์ และปุ่มส่งออกใบรับรองชั่วโมงรวม
+- **การแจ้งเตือน (Notifications):** รายการแจ้งเตือนเรียงตามเวลา ครอบคลุมกิจกรรม เกียรติบัตร เหรียญตรา เตือนความจำ และระบบ พร้อมสถานะอ่าน/ยังไม่อ่าน
+- **ความสำเร็จ & ผู้นำ (Leaderboard):** โพเดียม 3 อันดับแรกประจำเดือน ตารางอันดับทั้งหมด เกณฑ์เหรียญตรา 4 ระดับ และคลังเหรียญความสำเร็จ
+- **โปรไฟล์ (Profile):** ข้อมูลส่วนตัว สถานศึกษา ทักษะ ความสนใจ ประวัติการเข้าร่วม และปุ่มสลับโปรไฟล์จำลอง 5 คน
+- **หน้าต่างรายละเอียดกิจกรรม:** รายละเอียดเต็ม ผู้จัด หน้าที่ คุณสมบัติ สิ่งที่จะได้รับ สถานที่ การแต่งกาย และปุ่มสมัคร
+- **หน้าต่างสมัครเข้าร่วม:** ฟอร์มข้อมูลส่วนตัวที่เติมให้อัตโนมัติ ข้อมูลผู้ติดต่อฉุกเฉิน ความต้องการพิเศษ การยอมรับเงื่อนไข และข้อความแจ้งเมื่อกรอกไม่ถูกต้อง
+- **หน้าต่างยืนยันการยกเลิก:** ตัวเลือกเหตุผลและคำเตือนก่อนยืนยัน
+- **หน้าต่างดูเกียรติบัตร:** เกียรติบัตรขนาดเต็ม พร้อมเลขที่ จำนวนชั่วโมง ผู้ลงนาม และรหัส QR สำหรับตรวจสอบ
+- **หน้าต่างใบรับรองชั่วโมงรวม:** เอกสารทางการที่รวมทุกกิจกรรมที่ผ่านการรับรองพร้อมยอดรวมชั่วโมง
 
-## 4. UI Components
-- Persistent sidebar navigation on desktop (Home, Discover, My Activities, Hours & Certificates, Notifications, Leaderboard, Profile)
-- Bottom navigation bar plus hamburger drawer on mobile, sharing one nav definition
-- Activity cards with cover image, category badge, hours badge, participant progress bar, and organizer
-- Filter panel with multi-select category chips, province dropdown, hours range, and reset button
-- Status badges (Open: Teal, Almost Full: Amber, Full: Slate)
-- Category color set (Education: Amber, Environment: Teal, Elderly: Rose, Animals: Yellow, Health: Sky, Community: Emerald)
-- Tier badges with icon and Thai name (🌱 New, ⭐ Regular, 🏆 Distinguished, 👑 Hero)
-- Modals for activity detail, sign-up, cancellation, certificate, and transcript
-- Form inputs with inline validation messages
-- Toast notifications and confetti effect on success
-- Progress bars for monthly goal, participant count, and hours-by-category stacked chart
-- Empty states with a call-to-action on every list screen
-- Skeleton cards for loading state
+## 4. ส่วนประกอบหน้าจอ (UI Components)
+- แถบเมนูด้านข้างแบบติดหน้าจอสำหรับเดสก์ท็อป (หน้าหลัก, ค้นหาอาสา, กิจกรรมของฉัน, เกียรติบัตร & ชั่วโมง, การแจ้งเตือน, ความสำเร็จ & ผู้นำ, โปรไฟล์)
+- แถบเมนูล่างและเมนูลิ้นชักสำหรับมือถือ โดยใช้นิยามเมนูชุดเดียวกับเดสก์ท็อป
+- การ์ดกิจกรรม แสดงรูปปก ป้ายหมวดหมู่ ป้ายจำนวนชั่วโมง แถบจำนวนผู้เข้าร่วม และชื่อผู้จัด
+- แผงตัวกรอง เลือกหมวดหมู่ได้หลายหมวด เลือกจังหวัด ปรับช่วงชั่วโมง และปุ่มล้างตัวกรอง
+- ป้ายสถานะกิจกรรม (เปิดรับสมัคร: เขียว, ใกล้เต็ม: ส้ม, เต็มแล้ว: เทา)
+- ชุดสีประจำหมวดหมู่ (การศึกษา: อำพัน, สิ่งแวดล้อม: เขียว, ผู้สูงอายุ: ชมพู, สัตว์: เหลือง, สุขภาพ: ฟ้า, ชุมชน: เขียวมรกต)
+- ป้ายระดับเหรียญตราพร้อมไอคอนและชื่อไทย (🌱 หน้าใหม่, ⭐ ประจำ, 🏆 ดีเด่น, 👑 ฮีโร่)
+- หน้าต่างป๊อปอัปสำหรับรายละเอียดกิจกรรม การสมัคร การยกเลิก เกียรติบัตร และใบรับรองชั่วโมงรวม
+- ช่องกรอกข้อมูลพร้อมข้อความแจ้งเตือนเมื่อกรอกไม่ถูกต้อง
+- ข้อความแจ้งผลแบบ Toast และเอฟเฟกต์กระดาษโปรยเมื่อทำรายการสำเร็จ
+- แถบความคืบหน้าสำหรับเป้าหมายรายเดือน จำนวนผู้เข้าร่วม และกราฟชั่วโมงแยกตามหมวดหมู่
+- สถานะว่าง (Empty State) พร้อมปุ่มนำทางในทุกหน้าจอที่อาจไม่มีข้อมูล
+- การ์ดโครงร่างระหว่างโหลดข้อมูล (Skeleton)
 
-## 5. User Flows
-**Signing Up for an Activity:**
-1. User browses Home or Discover and clicks an activity card
-2. Activity detail modal opens with full information
-3. User clicks "สมัครเข้าร่วม" and the sign-up form appears pre-filled from their profile
-4. User fills emergency contact and submits — form validates phone, email, and required fields
-5. Participant count increases, status flips to "full" if the last seat is taken, a notification is created
-6. Confetti and a success toast fire, then the app navigates to My Activities
+## 5. เส้นทางการใช้งาน (User Flows)
+**การสมัครเข้าร่วมกิจกรรม:**
+1. ผู้ใช้เลือกกิจกรรมจากหน้าหลักหรือหน้าค้นหา แล้วคลิกที่การ์ดกิจกรรม
+2. หน้าต่างรายละเอียดกิจกรรมเปิดขึ้นพร้อมข้อมูลครบถ้วน
+3. ผู้ใช้กด "สมัครเข้าร่วม" ระบบเปิดฟอร์มที่เติมข้อมูลจากโปรไฟล์ให้อัตโนมัติ
+4. ผู้ใช้กรอกข้อมูลผู้ติดต่อฉุกเฉินและกดส่ง ระบบตรวจสอบเบอร์โทร อีเมล และช่องที่จำเป็น
+5. ระบบเพิ่มจำนวนผู้เข้าร่วม เปลี่ยนสถานะเป็น "เต็ม" หากที่นั่งหมด และสร้างการแจ้งเตือน
+6. แสดงเอฟเฟกต์ฉลองพร้อมข้อความแจ้งผล แล้วพาไปหน้ากิจกรรมของฉัน
 
-**Completing an Activity and Receiving a Certificate:**
-1. User opens My Activities and clicks the complete-simulation button on a registered activity
-2. System adds the activity's hours to the user's total
-3. System recalculates the tier from the hour thresholds defined in the data source
-4. A certificate is generated with a number, issue date, signatory, and QR verification link
-5. A notification is created and a level-up message appears if the tier changed
-6. The certificate immediately appears in the Hours & Certificates vault
+**การเข้าร่วมสำเร็จและรับเกียรติบัตร:**
+1. ผู้ใช้เปิดหน้ากิจกรรมของฉัน แล้วกดปุ่มจำลองการเข้าร่วมสำเร็จ
+2. ระบบบวกชั่วโมงของกิจกรรมเข้าชั่วโมงสะสมรวม ชั่วโมงประจำเดือน และชั่วโมงของหมวดหมู่นั้น
+3. ระบบคำนวณระดับเหรียญตราใหม่จากเกณฑ์ชั่วโมงที่กำหนดไว้ในแหล่งข้อมูลกลาง
+4. ระบบออกเกียรติบัตรพร้อมเลขที่ วันที่ออก ผู้ลงนาม และลิงก์ตรวจสอบด้วยรหัส QR
+5. สร้างการแจ้งเตือน และแสดงข้อความแสดงความยินดีหากผู้ใช้เลื่อนระดับ
+6. เกียรติบัตรปรากฏในคลังเกียรติบัตรทันที และอันดับบนกระดานผู้นำอัปเดตตาม
 
-**Cancelling a Registration:**
-1. User opens My Activities and clicks cancel on an upcoming activity
-2. Confirmation modal opens with a reason dropdown
-3. User confirms — registration status becomes "cancelled"
-4. Participant count decreases and the activity reopens for sign-ups
-5. An info toast confirms the seat was returned to the system
+**การยกเลิกการสมัคร:**
+1. ผู้ใช้เปิดหน้ากิจกรรมของฉัน แล้วกดยกเลิกกิจกรรมที่ยังไม่ถึงกำหนด
+2. หน้าต่างยืนยันเปิดขึ้นพร้อมตัวเลือกเหตุผลในการยกเลิก
+3. ผู้ใช้กดยืนยัน ระบบเปลี่ยนสถานะใบสมัครเป็น "ยกเลิกแล้ว"
+4. ระบบลดจำนวนผู้เข้าร่วมและเปิดรับสมัครกิจกรรมนั้นอีกครั้ง
+5. แสดงข้อความยืนยันว่าที่นั่งถูกคืนกลับสู่ระบบแล้ว
 
-## 6. Mock Data
-All mock data lives in a **single source file**: `src/data/mockData.json`. No component declares its own data — derived values such as the leaderboard and category colors are computed from this file.
+## 6. ข้อมูลจำลอง (Mock Data)
+ข้อมูลจำลองทั้งหมดถูกเก็บไว้ใน **ไฟล์กลางเพียงไฟล์เดียว** คือ `src/data/mockData.json` ไม่มีไฟล์หน้าจอใดประกาศข้อมูลของตัวเอง ส่วนข้อมูลที่คำนวณต่อได้ เช่น กระดานผู้นำและชุดสีหมวดหมู่ ถูก derive มาจากไฟล์นี้ทั้งหมด
 
 ```json
 {
@@ -141,4 +141,4 @@ All mock data lives in a **single source file**: `src/data/mockData.json`. No co
 }
 ```
 
-**Data set size:** 12 activities · 5 user personas · 5 registrations · 3 certificates · 4 notifications · 7 badges · 4 tiers · 6 categories · 11 provinces · 7 navigation items
+**ปริมาณข้อมูลในระบบ:** กิจกรรม 12 รายการ · โปรไฟล์ผู้ใช้ 5 คน · ใบสมัคร 5 ใบ · เกียรติบัตร 3 ใบ · การแจ้งเตือน 4 รายการ · เหรียญความสำเร็จ 7 แบบ · ระดับเหรียญตรา 4 ระดับ · หมวดหมู่ 6 หมวด · จังหวัด 11 รายการ · เมนูนำทาง 7 รายการ

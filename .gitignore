@@ -9,3 +9,6 @@ coverage/
 
 # ไฟล์อ้างอิงส่วนตัว ไม่ต้องขึ้น repo
 Prd_teacher.md
+
+# PDF ที่ export เอง ไม่ต้องขึ้น repo
+PRD.pdf

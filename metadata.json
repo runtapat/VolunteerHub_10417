@@ -1,0 +1,6 @@
+{
+  "name": "VolunteerHub Thailand",
+  "description": "แพลตฟอร์มค้นหาและบันทึกกิจกรรมจิตอาสา สะสมชั่วโมง เกียรติบัตร และเหรียญรางวัลสำหรับนักเรียน นักศึกษา และคนรุ่นใหม่",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

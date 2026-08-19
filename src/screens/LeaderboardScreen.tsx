@@ -27,11 +27,19 @@ export const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({
   const [activeTab, setActiveTab] = useState<'leaderboard' | 'tiers'>('leaderboard');
 
   // ซิงก์ชั่วโมง/ระดับล่าสุดของผู้ใช้ปัจจุบันจาก state กลาง เพื่อไม่ให้ตารางแสดงค่าค้าง
+  // แล้วจัดอันดับใหม่จากชั่วโมงประจำเดือน ทำให้กระดานผู้นำอัปเดตแบบ Real-time จริง
   const leaderboard = MOCK_LEADERBOARD.map((entry) =>
     entry.userId === currentUser.id
-      ? { ...entry, totalHours: currentUser.totalHours, tier: currentUser.currentTier }
+      ? {
+          ...entry,
+          totalHours: currentUser.totalHours,
+          monthlyHours: currentUser.monthlyHours,
+          tier: currentUser.currentTier
+        }
       : entry
-  );
+  )
+    .sort((a, b) => b.monthlyHours - a.monthlyHours)
+    .map((entry, index) => ({ ...entry, rank: index + 1 }));
   const myEntry = leaderboard.find((entry) => entry.userId === currentUser.id);
   const top3 = leaderboard.slice(0, 3);
 

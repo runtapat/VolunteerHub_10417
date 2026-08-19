@@ -211,10 +211,19 @@ export default function App() {
     const isLeveledUp = newTier !== currentUser.currentTier;
 
     // Update user stats
+    // บวกชั่วโมงเข้าทุกตัวชี้วัดพร้อมกัน (ชั่วโมงรวม / ชั่วโมงเดือนนี้ / ชั่วโมงรายหมวด)
+    // เพื่อให้ทุกตัวเลขที่แสดงในแอปสอดคล้องกันเสมอตามกฎ DI-01
+    const awardedCategory = activity ? activity.category : CERTIFICATE_DEFAULTS.fallbackCategory;
     setCurrentUser((prev) => ({
       ...prev,
       totalHours: newTotalHours,
-      currentTier: newTier
+      currentTier: newTier,
+      monthlyHours: prev.monthlyHours + awardedHours,
+      completedActivitiesCount: prev.completedActivitiesCount + 1,
+      categoryHours: {
+        ...prev.categoryHours,
+        [awardedCategory]: (prev.categoryHours[awardedCategory] || 0) + awardedHours
+      }
     }));
 
     // Update registration status to completed

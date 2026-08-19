@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+
+# ไฟล์อ้างอิงส่วนตัว ไม่ต้องขึ้น repo
+Prd_teacher.md

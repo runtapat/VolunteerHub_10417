@@ -26,8 +26,14 @@ export const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({
 }) => {
   const [activeTab, setActiveTab] = useState<'leaderboard' | 'tiers'>('leaderboard');
 
-  const top3 = MOCK_LEADERBOARD.slice(0, 3);
-  const restList = MOCK_LEADERBOARD.slice(3);
+  // ซิงก์ชั่วโมง/ระดับล่าสุดของผู้ใช้ปัจจุบันจาก state กลาง เพื่อไม่ให้ตารางแสดงค่าค้าง
+  const leaderboard = MOCK_LEADERBOARD.map((entry) =>
+    entry.userId === currentUser.id
+      ? { ...entry, totalHours: currentUser.totalHours, tier: currentUser.currentTier }
+      : entry
+  );
+  const myEntry = leaderboard.find((entry) => entry.userId === currentUser.id);
+  const top3 = leaderboard.slice(0, 3);
 
   return (
     <div className="space-y-8 pb-12">
@@ -152,15 +158,15 @@ export const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({
           <div className="p-4 rounded-2xl bg-teal-50 border border-teal-200 flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-teal-500 text-white flex items-center justify-center font-extrabold text-base shadow-sm shadow-teal-200">
-                #{currentUser.rankMonthly}
+                #{myEntry ? myEntry.rank : '-'}
               </div>
               <div>
                 <p className="font-bold text-slate-800 text-sm">อันดับของคุณ: {currentUser.fullName}</p>
-                <p className="text-xs text-teal-700">สะสมในเดือนนี้ 18 ชั่วโมง (สะสมรวมตลอดกาล {currentUser.totalHours} ชั่วโมง)</p>
+                <p className="text-xs text-teal-700">สะสมในเดือนนี้ {currentUser.monthlyHours} ชั่วโมง (สะสมรวมตลอดกาล {currentUser.totalHours} ชั่วโมง)</p>
               </div>
             </div>
             <span className="text-xs font-bold text-teal-800 bg-teal-100 px-3 py-1 rounded-full border border-teal-200">
-              Top 5% ของผู้ใช้ทั้งหมด
+              {currentUser.percentileLabel}
             </span>
           </div>
 
@@ -184,7 +190,7 @@ export const LeaderboardScreen: React.FC<LeaderboardScreenProps> = ({
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-teal-50">
-                  {MOCK_LEADERBOARD.map((user) => {
+                  {leaderboard.map((user) => {
                     const isMe = user.userId === currentUser.id;
                     const tier = BADGE_TIERS[user.tier] || BADGE_TIERS.tier_1;
 

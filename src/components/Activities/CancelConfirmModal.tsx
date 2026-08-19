@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { Activity } from '../../types';
+import { CANCELLATION_REASONS } from '../../data/mockData';
 
 interface CancelConfirmModalProps {
   activity: Activity | null;
@@ -14,7 +15,7 @@ export const CancelConfirmModal: React.FC<CancelConfirmModalProps> = ({
   onConfirmCancel
 }) => {
   if (!activity) return null;
-  const [reason, setReason] = useState('ติดภารกิจด่วน / ติดสอบ');
+  const [reason, setReason] = useState(CANCELLATION_REASONS[0]);
 
   return (
     <div 
@@ -50,11 +51,9 @@ export const CancelConfirmModal: React.FC<CancelConfirmModalProps> = ({
             onChange={(e) => setReason(e.target.value)}
             className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs focus:bg-white focus:outline-hidden focus:border-rose-500"
           >
-            <option value="ติดภารกิจด่วน / ติดสอบ">ติดภารกิจด่วน / ติดสอบ</option>
-            <option value="ปัญหาสุขภาพ / ไม่สบาย">ปัญหาสุขภาพ / ไม่สบาย</option>
-            <option value="การเดินทางไม่สะดวก">การเดินทางไม่สะดวก</option>
-            <option value="สมัครซ้ำซ้อน">สมัครซ้ำซ้อน</option>
-            <option value="อื่นๆ">อื่นๆ</option>
+            {CANCELLATION_REASONS.map((item) => (
+              <option key={item} value={item}>{item}</option>
+            ))}
           </select>
         </div>
 

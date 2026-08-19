@@ -1,4 +1,6 @@
-export type CategoryType = 
+import type { LucideIcon } from 'lucide-react';
+
+export type CategoryType =
   | 'การศึกษา' 
   | 'สิ่งแวดล้อม' 
   | 'ผู้สูงอายุ' 
@@ -144,7 +146,14 @@ export interface UserProfile {
   skills: string[];
   interests: CategoryType[];
   badges: string[]; // Badge IDs
-  rankMonthly: number;
+  /** ชั่วโมงจิตอาสาของเดือนปัจจุบัน (แหล่งข้อมูลเดียวของเป้าหมายรายเดือนและกระดานผู้นำ) */
+  monthlyHours: number;
+  /** จำนวนกิจกรรมที่ทำสำเร็จสะสม (ใช้ในกระดานผู้นำ) */
+  completedActivitiesCount: number;
+  /** ชั่วโมงสะสมแยกตามหมวดหมู่ รวมกันต้องเท่ากับ totalHours */
+  categoryHours: Partial<Record<CategoryType, number>>;
+  /** ป้ายเปอร์เซ็นไทล์ที่แสดงในกระดานผู้นำ */
+  percentileLabel: string;
 }
 
 export interface NotificationItem {
@@ -184,7 +193,30 @@ export interface FilterState {
   sortBy: 'date_asc' | 'hours_desc' | 'popular' | 'newest';
 }
 
-export type ActiveTab = 
+/** ตัวเลือกใน dropdown (คงค่า value/label ไว้ที่แหล่งข้อมูลกลางที่เดียว) */
+export interface SelectOption {
+  value: string;
+  label: string;
+}
+
+/** เมนูนำทาง ใช้ร่วมกันทั้ง Sidebar (desktop), Bottom Bar และ Drawer (mobile) */
+export interface NavItem {
+  id: ActiveTab;
+  /** ป้ายกำกับใน Sidebar */
+  label: string;
+  /** ป้ายกำกับแบบสั้นใน Bottom Bar บนมือถือ */
+  shortLabel: string;
+  /** ป้ายกำกับแบบเต็มใน Drawer บนมือถือ */
+  drawerLabel: string;
+  sub: string;
+  icon: LucideIcon;
+  /** แสดงใน Bottom Bar บนมือถือหรือไม่ */
+  inBottomNav: boolean;
+  /** แสดงตัวเลขการแจ้งเตือนที่ยังไม่อ่านหรือไม่ */
+  showsUnreadBadge?: boolean;
+}
+
+export type ActiveTab =
   | 'home' 
   | 'discover' 
   | 'my_activities' 

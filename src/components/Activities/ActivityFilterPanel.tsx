@@ -9,7 +9,7 @@ import {
   X
 } from 'lucide-react';
 import { CategoryType, FilterState } from '../../types';
-import { CATEGORIES_LIST, PROVINCES_LIST } from '../../data/mockData';
+import { ACTIVITY_SORT_OPTIONS, CATEGORIES_LIST, PROVINCES_LIST } from '../../data/mockData';
 
 interface ActivityFilterPanelProps {
   filters: FilterState;
@@ -71,10 +71,9 @@ export const ActivityFilterPanel: React.FC<ActivityFilterPanelProps> = ({
             onChange={(e) => onFilterChange({ ...filters, sortBy: e.target.value as FilterState['sortBy'] })}
             className="px-3.5 py-2.5 rounded-2xl bg-slate-100 border-none text-xs font-semibold text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-teal-500 cursor-pointer"
           >
-            <option value="date_asc">🗓️ จัดเร็วๆ นี้ (Soonest)</option>
-            <option value="hours_desc">⏱️ ชั่วโมงสูงสุด (Most Hours)</option>
-            <option value="popular">🔥 ได้รับความนิยม (Popular)</option>
-            <option value="newest">✨ กิจกรรมใหม่ล่าสุด (Newest)</option>
+            {ACTIVITY_SORT_OPTIONS.map((option) => (
+              <option key={option.value} value={option.value}>{option.label}</option>
+            ))}
           </select>
 
           {hasActiveFilters && (

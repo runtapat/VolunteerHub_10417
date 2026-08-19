@@ -12,6 +12,7 @@ import {
   ShieldCheck 
 } from 'lucide-react';
 import { Activity, Registration, UserProfile } from '../../types';
+import { EMERGENCY_RELATION_OPTIONS } from '../../data/mockData';
 
 interface SignUpModalProps {
   activity: Activity | null;
@@ -36,7 +37,7 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({
     studentId: currentUser.studentId || '',
     emergencyName: '',
     emergencyPhone: '',
-    emergencyRelation: 'ผู้ปกครอง (Parent)',
+    emergencyRelation: EMERGENCY_RELATION_OPTIONS[0].value,
     specialNeeds: '',
     agreedTerms: true
   });
@@ -242,11 +243,9 @@ export const SignUpModal: React.FC<SignUpModalProps> = ({
                   onChange={(e) => setFormData({ ...formData, emergencyRelation: e.target.value })}
                   className="w-full p-2.5 rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:outline-hidden focus:border-teal-500"
                 >
-                  <option value="ผู้ปกครอง (Parent)">บิดา / มารดา (ผู้ปกครอง)</option>
-                  <option value="พี่น้อง (Sibling)">พี่ / น้อง</option>
-                  <option value="ญาติ (Relative)">ญาติสนิท</option>
-                  <option value="เพื่อน (Friend)">เพื่อนสนิท</option>
-                  <option value="อาจารย์ที่ปรึกษา (Advisor)">อาจารย์ที่ปรึกษา</option>
+                  {EMERGENCY_RELATION_OPTIONS.map((option) => (
+                    <option key={option.value} value={option.value}>{option.label}</option>
+                  ))}
                 </select>
               </div>
 

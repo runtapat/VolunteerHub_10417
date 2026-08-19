@@ -14,7 +14,7 @@ import {
   Layers
 } from 'lucide-react';
 import { Certificate, Registration, UserProfile } from '../types';
-import { BADGE_TIERS, CATEGORIES_LIST } from '../data/mockData';
+import { BADGE_TIERS, CATEGORIES_LIST, CATEGORY_BAR_COLORS } from '../data/mockData';
 
 interface VolunteerHoursScreenProps {
   currentUser: UserProfile;
@@ -36,30 +36,13 @@ export const VolunteerHoursScreen: React.FC<VolunteerHoursScreenProps> = ({
   const currentTier = BADGE_TIERS[currentUser.currentTier] || BADGE_TIERS.tier_1;
   const userCertificates = certificates.filter((c) => c.userId === currentUser.id);
 
-  // Map category hours using the central CATEGORIES_LIST from mockData
-  const categoryHoursMap: Record<string, number> = {
-    'การศึกษา': 16,
-    'สิ่งแวดล้อม': 21,
-    'ผู้สูงอายุ': 10,
-    'สัตว์': 6,
-    'สุขภาพ': 5
-  };
-
-  const categoryColorMap: Record<string, string> = {
-    'การศึกษา': 'bg-amber-500',
-    'สิ่งแวดล้อม': 'bg-teal-500',
-    'ผู้สูงอายุ': 'bg-rose-500',
-    'สัตว์': 'bg-yellow-500',
-    'สุขภาพ': 'bg-sky-500',
-    'ชุมชน': 'bg-emerald-500'
-  };
-
-  const categoryHours = CATEGORIES_LIST.slice(0, 5).map((cat) => ({
+  // ชั่วโมงและสีรายหมวดหมู่มาจาก mockData ทั้งหมด (ไม่มีตัวเลข/สีฮาร์ดโค้ดในหน้าจอ)
+  const categoryHours = CATEGORIES_LIST.map((cat) => ({
     name: cat.name,
-    hours: categoryHoursMap[cat.name] || 0,
-    color: categoryColorMap[cat.name] || 'bg-teal-500',
+    hours: currentUser.categoryHours[cat.name] || 0,
+    color: CATEGORY_BAR_COLORS[cat.name],
     icon: cat.icon
-  }));
+  })).filter((cat) => cat.hours > 0);
 
 
   return (

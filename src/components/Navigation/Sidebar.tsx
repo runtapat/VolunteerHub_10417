@@ -1,17 +1,7 @@
 import React from 'react';
-import { 
-  Home, 
-  Compass, 
-  CalendarCheck, 
-  Award, 
-  Bell, 
-  Trophy, 
-  User, 
-  HeartHandshake,
-  Sparkles
-} from 'lucide-react';
+import { HeartHandshake } from 'lucide-react';
 import { ActiveTab, UserProfile } from '../../types';
-import { BADGE_TIERS, MONTHLY_GOAL_DEFAULT } from '../../data/mockData';
+import { BADGE_TIERS, MONTHLY_GOAL_DEFAULT, NAV_ITEMS } from '../../data/mockData';
 
 interface SidebarProps {
   activeTab: ActiveTab;
@@ -28,18 +18,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const currentTier = BADGE_TIERS[currentUser.currentTier] || BADGE_TIERS.tier_1;
   const targetMonthlyGoal = MONTHLY_GOAL_DEFAULT.targetHours;
-  const currentMonthlyHours = MONTHLY_GOAL_DEFAULT.defaultCurrentHours;
+  const currentMonthlyHours = currentUser.monthlyHours;
   const monthlyPercent = Math.min(100, Math.round((currentMonthlyHours / targetMonthlyGoal) * 100));
 
-  const menuItems = [
-    { id: 'home' as ActiveTab, label: 'หน้าหลัก', sub: 'Home', icon: Home },
-    { id: 'discover' as ActiveTab, label: 'ค้นหาอาสา', sub: 'Discover', icon: Compass },
-    { id: 'my_activities' as ActiveTab, label: 'กิจกรรมของฉัน', sub: 'My Activities', icon: CalendarCheck },
-    { id: 'hours_certificates' as ActiveTab, label: 'เกียรติบัตร & ชั่วโมง', sub: 'Hours & Certs', icon: Award },
-    { id: 'notifications' as ActiveTab, label: 'การแจ้งเตือน', sub: 'Notifications', icon: Bell, badge: unreadCount },
-    { id: 'leaderboard' as ActiveTab, label: 'ความสำเร็จ & ผู้นำ', sub: 'Leaderboard', icon: Trophy },
-    { id: 'profile' as ActiveTab, label: 'โปรไฟล์ & ผลงาน', sub: 'Profile', icon: User }
-  ];
 
   return (
     <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-teal-100 shrink-0 h-screen sticky top-0 z-30 shadow-xs">
@@ -62,7 +43,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         <div className="px-3 py-1 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
           เมนูหลัก
         </div>
-        {menuItems.map((item) => {
+        {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
           const isActive = activeTab === item.id;
           return (
@@ -84,9 +65,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 </div>
               </div>
 
-              {item.badge !== undefined && item.badge > 0 ? (
+              {item.showsUnreadBadge && unreadCount > 0 ? (
                 <span className="px-2 py-0.5 text-xs font-bold rounded-full bg-red-500 text-white shadow-xs animate-pulse">
-                  {item.badge}
+                  {unreadCount}
                 </span>
               ) : null}
             </button>

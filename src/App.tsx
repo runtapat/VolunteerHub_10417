@@ -15,7 +15,10 @@ import {
   MOCK_NOTIFICATIONS, 
   MOCK_REGISTRATIONS, 
   MOCK_USERS,
-  BADGE_TIERS
+  BADGE_TIERS,
+  CERTIFICATE_DEFAULTS,
+  NEW_REGISTRATION_DEFAULTS,
+  resolveTierByHours
 } from './data/mockData';
 
 // Layout & Common Components
@@ -110,11 +113,7 @@ export default function App() {
       email: regData.email || currentUser.email,
       institution: regData.institution || currentUser.institution,
       studentId: regData.studentId || currentUser.studentId,
-      emergencyContact: regData.emergencyContact || {
-        name: 'ผู้ปกครอง',
-        phone: '0812345678',
-        relation: 'บิดา/มารดา'
-      },
+      emergencyContact: regData.emergencyContact || NEW_REGISTRATION_DEFAULTS.emergencyContact,
       specialNeeds: regData.specialNeeds
     };
 
@@ -203,14 +202,11 @@ export default function App() {
     if (!reg) return;
 
     const activity = activitiesMap[reg.activityId];
-    const awardedHours = activity ? activity.hours : 6;
+    const awardedHours = activity ? activity.hours : CERTIFICATE_DEFAULTS.fallbackHours;
     const newTotalHours = currentUser.totalHours + awardedHours;
 
-    // Calculate new tier
-    let newTier = currentUser.currentTier;
-    if (newTotalHours >= 100) newTier = 'tier_4';
-    else if (newTotalHours >= 50) newTier = 'tier_3';
-    else if (newTotalHours >= 20) newTier = 'tier_2';
+    // Calculate new tier (ใช้เกณฑ์ minHours จาก BADGE_TIERS ใน mockData เป็นแหล่งเดียว)
+    const newTier = resolveTierByHours(newTotalHours);
 
     const isLeveledUp = newTier !== currentUser.currentTier;
 
@@ -234,20 +230,22 @@ export default function App() {
     // Generate new Certificate
     const newCert: Certificate = {
       id: newCertId,
-      certificateNumber: `VH-2026-${activity ? activity.category.slice(0, 3).toUpperCase() : 'ACT'}-${Math.floor(1000 + Math.random() * 9000)}`,
+      certificateNumber: `${CERTIFICATE_DEFAULTS.numberPrefix}-${
+        activity ? activity.category.slice(0, 3).toUpperCase() : CERTIFICATE_DEFAULTS.fallbackCategoryCode
+      }-${Math.floor(1000 + Math.random() * 9000)}`,
       userId: currentUser.id,
       userName: currentUser.fullName,
       userInstitution: `${currentUser.institution} (รหัสนักศึกษา ${currentUser.studentId || '-'})`,
       activityId: activity ? activity.id : reg.activityId,
-      activityTitle: activity ? activity.title : 'กิจกรรมจิตอาสาพัฒนาสังคม',
-      category: activity ? activity.category : 'ชุมชน',
+      activityTitle: activity ? activity.title : CERTIFICATE_DEFAULTS.fallbackActivityTitle,
+      category: activity ? activity.category : CERTIFICATE_DEFAULTS.fallbackCategory,
       hours: awardedHours,
-      issueDate: '2026-08-18',
-      organizerName: activity ? activity.organizer.name : 'เครือข่ายจิตอาสา VolunteerHub',
-      organizerSignatory: 'อาจารย์อุดมศักดิ์ วัฒนปรีชา',
-      organizerPosition: 'ประธานคณะกรรมการตรวจรับรองชั่วโมงจิตอาสา',
-      qrVerificationUrl: `https://volunteerhub.th/verify/${newCertId}`,
-      templateStyle: 'gold'
+      issueDate: CERTIFICATE_DEFAULTS.issueDate,
+      organizerName: activity ? activity.organizer.name : CERTIFICATE_DEFAULTS.fallbackOrganizerName,
+      organizerSignatory: CERTIFICATE_DEFAULTS.organizerSignatory,
+      organizerPosition: CERTIFICATE_DEFAULTS.organizerPosition,
+      qrVerificationUrl: `${CERTIFICATE_DEFAULTS.verificationBaseUrl}/${newCertId}`,
+      templateStyle: CERTIFICATE_DEFAULTS.templateStyle
     };
 
     setCertificates((prev) => [newCert, ...prev]);

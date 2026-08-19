@@ -11,7 +11,7 @@ import {
   School
 } from 'lucide-react';
 import { Activity, Registration, UserProfile } from '../../types';
-import { BADGE_TIERS } from '../../data/mockData';
+import { BADGE_TIERS, TRANSCRIPT_DOCUMENT } from '../../data/mockData';
 
 interface TranscriptModalProps {
   currentUser: UserProfile;
@@ -84,16 +84,18 @@ export const TranscriptModal: React.FC<TranscriptModalProps> = ({
                   VH
                 </div>
                 <div>
-                  <h2 className="text-base font-extrabold text-slate-900">VOLUNTEERHUB THAILAND</h2>
-                  <p className="text-[10px] text-slate-500 uppercase tracking-wider">แพลตฟอร์มรับรองชั่วโมงจิตอาสาแห่งประเทศไทย</p>
+                  <h2 className="text-base font-extrabold text-slate-900">{TRANSCRIPT_DOCUMENT.organizationName}</h2>
+                  <p className="text-[10px] text-slate-500 uppercase tracking-wider">{TRANSCRIPT_DOCUMENT.organizationTagline}</p>
                 </div>
               </div>
             </div>
 
             <div className="text-left sm:text-right">
-              <p className="font-bold text-slate-900 text-xs">เอกสารรับรองชั่วโมงการทำประโยชน์เพื่อสังคม</p>
-              <p className="text-[10px] text-slate-500">เอกสารเลขที่: VH-TR-2026-{currentUser.studentId || '88392'}</p>
-              <p className="text-[10px] text-slate-500">พิมพ์เมื่อ: 18 สิงหาคม 2026</p>
+              <p className="font-bold text-slate-900 text-xs">{TRANSCRIPT_DOCUMENT.documentTitle}</p>
+              <p className="text-[10px] text-slate-500">
+                เอกสารเลขที่: {TRANSCRIPT_DOCUMENT.documentNumberPrefix}-{currentUser.studentId || TRANSCRIPT_DOCUMENT.fallbackStudentId}
+              </p>
+              <p className="text-[10px] text-slate-500">พิมพ์เมื่อ: {TRANSCRIPT_DOCUMENT.printedDate}</p>
             </div>
           </div>
 
@@ -181,8 +183,8 @@ export const TranscriptModal: React.FC<TranscriptModalProps> = ({
 
             <div className="space-y-1">
               <p className="text-slate-400">ผู้มีอำนาจรับรองระบบส่วนกลาง</p>
-              <div className="pt-6 font-serif font-bold text-teal-900">(นายแพทย์ณรงค์ วัฒนาการกุล)</div>
-              <p className="text-[10px] text-slate-500">ประธานคณะกรรมการตรวจรับรองชั่วโมงจิตอาสา VolunteerHub</p>
+              <div className="pt-6 font-serif font-bold text-teal-900">({TRANSCRIPT_DOCUMENT.verifierName})</div>
+              <p className="text-[10px] text-slate-500">{TRANSCRIPT_DOCUMENT.verifierPosition}</p>
             </div>
           </div>
         </div>

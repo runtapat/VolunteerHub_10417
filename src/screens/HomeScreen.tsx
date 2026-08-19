@@ -38,7 +38,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({
 }) => {
   const currentTier = BADGE_TIERS[currentUser.currentTier] || BADGE_TIERS.tier_1;
   const targetMonthlyGoal = MONTHLY_GOAL_DEFAULT.targetHours;
-  const currentMonthlyHours = MONTHLY_GOAL_DEFAULT.defaultCurrentHours;
+  const currentMonthlyHours = currentUser.monthlyHours;
   const monthlyPercent = Math.min(100, Math.round((currentMonthlyHours / targetMonthlyGoal) * 100));
 
 

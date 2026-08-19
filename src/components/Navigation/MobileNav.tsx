@@ -1,17 +1,7 @@
 import React from 'react';
-import { 
-  Home, 
-  Compass, 
-  CalendarCheck, 
-  Award, 
-  User, 
-  Bell, 
-  Trophy, 
-  X, 
-  HeartHandshake 
-} from 'lucide-react';
+import { X, HeartHandshake } from 'lucide-react';
 import { ActiveTab, UserProfile } from '../../types';
-import { BADGE_TIERS } from '../../data/mockData';
+import { BADGE_TIERS, NAV_ITEMS } from '../../data/mockData';
 
 interface MobileNavProps {
   activeTab: ActiveTab;
@@ -32,23 +22,8 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 }) => {
   const currentTier = BADGE_TIERS[currentUser.currentTier] || BADGE_TIERS.tier_1;
 
-  const bottomNavItems = [
-    { id: 'home' as ActiveTab, label: 'หน้าหลัก', icon: Home },
-    { id: 'discover' as ActiveTab, label: 'ค้นหา', icon: Compass },
-    { id: 'my_activities' as ActiveTab, label: 'กิจกรรม', icon: CalendarCheck },
-    { id: 'hours_certificates' as ActiveTab, label: 'เกียรติบัตร', icon: Award },
-    { id: 'profile' as ActiveTab, label: 'โปรไฟล์', icon: User }
-  ];
-
-  const drawerItems = [
-    { id: 'home' as ActiveTab, label: 'หน้าหลัก', icon: Home },
-    { id: 'discover' as ActiveTab, label: 'ค้นหากิจกรรมอาสา', icon: Compass },
-    { id: 'my_activities' as ActiveTab, label: 'กิจกรรมของฉัน', icon: CalendarCheck },
-    { id: 'hours_certificates' as ActiveTab, label: 'ชั่วโมง & เกียรติบัตร', icon: Award },
-    { id: 'notifications' as ActiveTab, label: 'การแจ้งเตือน', icon: Bell, badge: unreadCount },
-    { id: 'leaderboard' as ActiveTab, label: 'ความสำเร็จ & ผู้นำ', icon: Trophy },
-    { id: 'profile' as ActiveTab, label: 'โปรไฟล์ & พอร์ตโฟลิโอ', icon: User }
-  ];
+  // เมนูทั้งหมดมาจาก NAV_ITEMS ใน mockData ชุดเดียวกับ Sidebar
+  const bottomNavItems = NAV_ITEMS.filter((item) => item.inBottomNav);
 
   return (
     <>
@@ -70,7 +45,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
               <div className={`p-1 rounded-lg ${isActive ? 'bg-teal-50 text-teal-600' : ''}`}>
                 <Icon className="w-5 h-5" />
               </div>
-              <span className="text-[10px] mt-0.5">{item.label}</span>
+              <span className="text-[10px] mt-0.5">{item.shortLabel}</span>
             </button>
           );
         })}
@@ -116,7 +91,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({
 
             {/* Drawer Navigation List */}
             <div className="flex-1 space-y-1.5 overflow-y-auto">
-              {drawerItems.map((item) => {
+              {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
                 return (
@@ -134,11 +109,11 @@ export const MobileNav: React.FC<MobileNavProps> = ({
                   >
                     <div className="flex items-center gap-3">
                       <Icon className="w-4 h-4" />
-                      <span>{item.label}</span>
+                      <span>{item.drawerLabel}</span>
                     </div>
-                    {item.badge !== undefined && item.badge > 0 && (
+                    {item.showsUnreadBadge && unreadCount > 0 && (
                       <span className="px-2 py-0.5 text-[10px] font-bold rounded-full bg-red-500 text-white">
-                        {item.badge}
+                        {unreadCount}
                       </span>
                     )}
                   </button>
